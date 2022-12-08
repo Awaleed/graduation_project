@@ -1,0 +1,54 @@
+# Feature Selection with Univariate Statistical Tests
+from pandas import read_csv
+from numpy import set_printoptions
+from sklearn.feature_selection import SelectKBest
+from sklearn.feature_selection import f_classif
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.model_selection import train_test_split
+# load data
+filename = 'pima-indians-diabetes.data.csv'
+names = ['preg','plas','pres','skin','test','mass','pedi','age','class']
+
+
+df = read_csv(filename, names=names)
+df.dropna(inplace=True)
+
+
+array = df.values
+X = array[:, 0:8]
+Y = array[:, 8]
+
+# feature extraction
+test = SelectKBest(score_func=f_classif, k=4)
+
+fit = test.fit(X, Y)
+
+# summarize scores
+set_printoptions(precision=3)
+
+print(fit.scores_)
+
+features = fit.transform(X)
+
+# summarize selected features
+print(features[0:5, :])
+
+# selected features
+# preg, plas, mass, age
+
+scaler = MinMaxScaler()
+scalerModel = scaler.fit(features)
+scaledX = scalerModel.fit_transform(features)
+
+print('-------Scaled Data-------')
+print(scaledX.head(10))
+
+X_train, X_test, y_train, y_test = train_test_split(
+    scaledX, Y, test_size=.2, shuffle=True)
+
+
+print('\n\n')
+print('X_test: {}'.format(X_test.shape))
+print('y_test: {}'.format(y_test.shape))
+print('X_train: {}'.format(X_train.shape))
+print('y_train: {}'.format(y_train.shape))
