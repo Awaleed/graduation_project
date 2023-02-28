@@ -1,6 +1,3 @@
-fastapi
+flask
 numpy
 tensorflow
-uvicorn
-python-multipart
-starlette
