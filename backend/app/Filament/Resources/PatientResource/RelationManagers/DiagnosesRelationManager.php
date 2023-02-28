@@ -46,7 +46,7 @@ class DiagnosesRelationManager extends RelationManager
         return $form
             ->columns(1)
             ->schema([
-                Forms\Components\Hidden::make('doctor_id')->default(auth()->user()?->doctor?->id),
+                Forms\Components\Hidden::make('doctor_id')->default(1),
                 Forms\Components\Textarea::make('body')
                     ->required()
                     ->maxLength(65535),

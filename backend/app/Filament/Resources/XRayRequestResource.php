@@ -18,6 +18,7 @@ class XRayRequestResource extends Resource
     protected static ?string $model = XRayRequest::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static bool $shouldRegisterNavigation = false;
 
     public static function form(Form $form): Form
     {
@@ -54,14 +55,14 @@ class XRayRequestResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -69,5 +70,5 @@ class XRayRequestResource extends Resource
             'create' => Pages\CreateXRayRequest::route('/create'),
             'edit' => Pages\EditXRayRequest::route('/{record}/edit'),
         ];
-    }    
+    }
 }
